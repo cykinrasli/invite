@@ -2,145 +2,86 @@
 <html lang="ms">
 <head>
   <meta charset="UTF-8">
-  <title>Fatin & Ezlan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fatin & Ezlan</title>
 
-  <!-- WhatsApp / Social Preview -->
+  <!-- Social Preview -->
   <meta property="og:title" content="Walimatul Urus Fatin & Ezlan">
   <meta property="og:description" content="Dengan penuh kesyukuran kami menjemput anda ke majlis perkahwinan kami">
-  <meta property="og:image" content="https://yourusername.github.io/invite/cover.jpg">
+  <meta property="og:image" content="cover.jpg">
   <meta property="og:type" content="website">
 
-<style>
-  body {
-    margin: 0;
-    font-family: 'Georgia', serif;
-    background: #f5efe6;
-    text-align: center;
-  }
+  <!-- Styles -->
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: #f5efe6;
+      text-align: center;
+    }
 
-  .card {
-    max-width: 420px;
-    margin: 20px auto;
-    background: white;
-    padding: 25px;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-
-    /* Animation */
-    animation: slideFade 1.2s ease forwards;
-    opacity: 0;
-  }
-
-  @keyframes slideFade {
-    from {
+    .card {
+      max-width: 420px;
+      margin: 20px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      animation: slideFade 1.2s ease forwards;
       opacity: 0;
-      transform: translateY(30px);
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+
+    @keyframes slideFade {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
     }
-  }
 
-  .btn {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 12px 20px;
-    background: #c2a14d;
-    color: white;
-    text-decoration: none;
-    border-radius: 25px;
-    transition: transform 0.3s;
-  }
+    h1 { margin-bottom: 5px; }
+    .divider { width: 80px; height: 2px; background: #c2a14d; margin: 15px auto;}
 
-  .btn:hover {
-    transform: scale(1.05);
-  }
-  #countdown {
-  display: flex;
-  justify-content: space-around;
-  margin: 20px 0;
+    .btn {
+      display: inline-block;
+      margin: 15px 5px 0;
+      padding: 12px 20px;
+      background: #c2a14d;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      transition: transform 0.3s;
+    }
 
-  /* Animation */
-  opacity: 0;
-  transform: scale(0.9);
-  animation: countdownFade 1s ease forwards;
-  animation-delay: 0.8s;
-}
+    .btn:hover { transform: scale(1.05); }
 
-@keyframes countdownFade {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
+    /* Countdown */
+    #countdown { display: flex; justify-content: space-around; margin: 20px 0; opacity:0; transform:scale(0.9); animation: countdownFade 1s ease forwards; animation-delay:0.8s;}
+    @keyframes countdownFade { from{opacity:0; transform:scale(0.9);} to{opacity:1; transform:scale(1);} }
+    #countdown div { background:#f5efe6; padding:10px; border-radius:10px; width:70px; animation: popIn 0.6s ease forwards; }
+    #countdown div:nth-child(1){animation-delay:1s;} #countdown div:nth-child(2){animation-delay:1.1s;}
+    #countdown div:nth-child(3){animation-delay:1.2s;} #countdown div:nth-child(4){animation-delay:1.3s;}
+    @keyframes popIn { from{opacity:0; transform:translateY(10px) scale(0.8);} to{opacity:1; transform:translateY(0) scale(1);} }
 
-#countdown div {
-  background: #f5efe6;
-  padding: 10px;
-  border-radius: 10px;
-  width: 70px;
-
-  /* Pop animation */
-  animation: popIn 0.6s ease forwards;
-}
-
-#countdown div:nth-child(1) { animation-delay: 1s; }
-#countdown div:nth-child(2) { animation-delay: 1.1s; }
-#countdown div:nth-child(3) { animation-delay: 1.2s; }
-#countdown div:nth-child(4) { animation-delay: 1.3s; }
-
-@keyframes popIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px) scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-</style>
-
-
+    /* Music Button */
+    #musicBtn {
+      position: fixed; bottom:20px; right:20px;
+      background:#c2a14d; color:white; border:none;
+      border-radius:50%; width:50px; height:50px;
+      font-size:18px; cursor:pointer; box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    }
+  </style>
 </head>
 
 <body>
-<script>
-  const eventDate = new Date("2026-01-12T11:00:00").getTime();
-  const countdown = document.getElementById("countdown");
 
-  window.addEventListener("load", () => {
-    countdown.style.opacity = 1;
-  });
+<!-- Music -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+<button id="musicBtn">🔈</button>
 
-  setInterval(() => {
-    const now = new Date().getTime();
-    const diff = eventDate - now;
-
-    if (diff <= 0) return;
-
-    document.getElementById("days").innerText =
-      Math.floor(diff / (1000 * 60 * 60 * 24));
-    document.getElementById("hours").innerText =
-      Math.floor((diff / (1000 * 60 * 60)) % 24);
-    document.getElementById("minutes").innerText =
-      Math.floor((diff / (1000 * 60)) % 60);
-    document.getElementById("seconds").innerText =
-      Math.floor((diff / 1000) % 60);
-  }, 1000);
-</script>
-  
+<!-- Card -->
 <div class="card">
   <p>Walimatul Urus</p>
   <h1>Fatin & Ezlan</h1>
-
   <div class="divider"></div>
 
   <p>
@@ -152,26 +93,45 @@
   <p>
     <b>Tarikh:</b> 12 Januari 2026<br>
     <b>Masa:</b> 11.00 pagi – 4.00 petang<br>
-    <b>Tempat:</b><br>
-    Dewan Seri Mutiara
+    <b>Tempat:</b> Dewan Seri Mutiara
   </p>
 
   <a class="btn" href="https://maps.google.com" target="_blank">📍 Google Maps</a>
-  <a class="btn" href="https://forms.gle/xcWADbT7FkVn2ibK6" target="_blank">
-  📝 RSVP Kehadiran
-</a>
-<iframe
-  src="https://forms.gle/xcWADbT7FkVn2ibK6"
-  width="100%"
-  height="600"
-  frameborder="0"
-  style="border-radius:12px; margin-top:20px;">
-</iframe>
+  
+  <!-- Countdown -->
+  <div id="countdown">
+    <div><span id="days">0</span><small>Hari</small></div>
+    <div><span id="hours">0</span><small>Jam</small></div>
+    <div><span id="minutes">0</span><small>Minit</small></div>
+    <div><span id="seconds">0</span><small>Saat</small></div>
+  </div>
+
+  <!-- RSVP -->
+  <a class="btn" href="https://forms.gle/ABC123XYZ" target="_blank">📝 RSVP Kehadiran</a>
 </div>
+
+<!-- Scripts -->
+<script>
+  // Music toggle
+  const music = document.getElementById("bgMusic");
+  const btn = document.getElementById("musicBtn");
+  btn.addEventListener("click",()=>{if(music.paused){music.play(); btn.textContent="🔊";} else{music.pause(); btn.textContent="🔈";}});
+  document.addEventListener("click",()=>{music.play().catch(()=>{});},{once:true});
+
+  // Countdown
+  const eventDate = new Date("2026-01-12T11:00:00").getTime();
+  const countdown = document.getElementById("countdown");
+  window.addEventListener("load",()=>{countdown.style.opacity=1;});
+  setInterval(()=>{
+    const now=new Date().getTime();
+    const diff=eventDate-now;
+    if(diff<=0) return;
+    document.getElementById("days").innerText=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("hours").innerText=Math.floor((diff/(1000*60*60))%24);
+    document.getElementById("minutes").innerText=Math.floor((diff/(1000*60))%60);
+    document.getElementById("seconds").innerText=Math.floor((diff/1000)%60);
+  },1000);
+</script>
 
 </body>
 </html>
-
-
-
-
