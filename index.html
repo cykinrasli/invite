@@ -38,6 +38,7 @@
 
     h1 { margin-bottom: 5px; }
     .divider { width: 80px; height: 2px; background: #c2a14d; margin: 15px auto;}
+<h2 id="guestName"></h2>
 
     .btn {
       display: inline-block;
@@ -118,6 +119,22 @@
   btn.addEventListener("click",()=>{if(music.paused){music.play(); btn.textContent="🔊";} else{music.pause(); btn.textContent="🔈";}});
   document.addEventListener("click",()=>{music.play().catch(()=>{});},{once:true});
 
+  // Guest name greeting
+function getGuestName() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('guest') || '';
+}
+
+const guest = getGuestName();
+const guestElement = document.getElementById('guestName');
+
+if (guest) {
+  guestElement.innerText = `Assalamualaikum ${guest}!`;
+  guestElement.style.fontSize = '20px';
+  guestElement.style.color = '#c2a14d';
+  guestElement.style.marginBottom = '10px';
+}
+
   // Countdown
   const eventDate = new Date("2026-01-12T11:00:00").getTime();
   const countdown = document.getElementById("countdown");
@@ -135,3 +152,4 @@
 
 </body>
 </html>
+
